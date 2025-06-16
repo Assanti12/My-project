@@ -1,0 +1,1251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <title>Assanti Flavor Haven - Authentic Local Cuisine</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #ff6b35;
+            --secondary: #f7931e;
+            --accent: #2c5530;
+            --dark: #1a1a1a;
+            --light: #ffffff;
+            --gray: #f8f9fa;
+            --success: #28a745;
+            --danger: #dc3545;
+            --warning: #ffc107;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--dark);
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Navigation */
+        .navbar {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            padding: 1rem 0;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--light);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-item a {
+            color: var(--light);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+        }
+
+        .nav-item a:hover {
+            background: rgba(255,255,255,0.2);
+            transform: translateY(-2px);
+        }
+
+        .cart-icon {
+            position: relative;
+            font-size: 1.5rem;
+            color: var(--light);
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .cart-icon:hover {
+            transform: scale(1.1);
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: var(--danger);
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+        .mobile-menu {
+            display: none;
+            flex-direction: column;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            padding: 1rem 0;
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: var(--light);
+            margin: 3px 0;
+            transition: 0.3s;
+        }
+        .hero {
+            background: linear-gradient(135deg, rgba(255,107,53,0.9), rgba(247,147,30,0.9)), url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600"><rect fill="%23ff6b35" width="1200" height="600"/><circle fill="%23f7931e" cx="200" cy="100" r="50" opacity="0.3"/><circle fill="%23f7931e" cx="800" cy="200" r="80" opacity="0.2"/><circle fill="%23f7931e" cx="1000" cy="400" r="60" opacity="0.3"/></svg>');
+            background-size: cover;
+            background-position: center;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: var(--light);
+            position: relative;
+            margin-top: 80px;
+        }
+
+        .hero-content h1 {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            animation: fadeInUp 1s ease;
+        }
+
+        .hero-content p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            animation: fadeInUp 1s ease 0.2s both;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            animation: fadeInUp 1s ease 0.4s both;
+        }
+
+        .btn {
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-primary {
+            background: var(--light);
+            color: var(--primary);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--light);
+            border: 2px solid var(--light);
+        }
+
+        .btn-outline:hover {
+            background: var(--light);
+            color: var(--primary);
+            transform: translateY(-3px);
+        }
+        .section {
+            padding: 5rem 0;
+            display: none;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: var(--accent);
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            border-radius: 2px;
+        }
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .menu-item {
+            background: var(--light);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .menu-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+        }
+
+        .menu-item-image {
+            height: 200px;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: var(--light);
+        }
+
+        .menu-item-content {
+            padding: 1.5rem;
+        }
+
+        .menu-item h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: var(--accent);
+        }
+
+        .menu-item p {
+            color: #666;
+            margin-bottom: 1rem;
+        }
+
+        .menu-item-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .price {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary);
+        }
+
+        .add-to-cart {
+            background: var(--primary);
+            color: var(--light);
+            border: none;
+            padding: 0.7rem 1.5rem;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .add-to-cart:hover {
+            background: var(--secondary);
+            transform: scale(1.05);
+        }
+        .order-form {
+            background: var(--gray);
+            padding: 2rem;
+            border-radius: 15px;
+            margin-top: 2rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--accent);
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .order-summary {
+            background: var(--light);
+            padding: 2rem;
+            border-radius: 15px;
+            margin-top: 2rem;
+        }
+
+        .order-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .order-total {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary);
+            text-align: right;
+            margin-top: 1rem;
+        }
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .about-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        .about-image {
+            height: 400px;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            color: var(--light);
+        }
+        .contact-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .contact-item {
+            background: var(--light);
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+
+        .contact-item i {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+        .profile-tabs {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .tab-btn {
+            padding: 1rem 2rem;
+            background: var(--gray);
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .tab-btn.active {
+            background: var(--primary);
+            color: var(--light);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .order-history-item {
+            background: var(--light);
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            animation: fadeInUp 0.6s ease;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background: var(--light);
+            padding: 2rem;
+            border-radius: 15px;
+            max-width: 500px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .close-modal {
+            float: right;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--primary);
+        }
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .mobile-menu.active {
+                display: flex;
+            }
+
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero-content p {
+                font-size: 1.1rem;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .about-content {
+                grid-template-columns: 1fr;
+            }
+
+            .menu-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .profile-tabs {
+                flex-direction: column;
+            }
+        }
+        .message {
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            display: none;
+        }
+
+        .message.success {
+            background: rgba(40, 167, 69, 0.1);
+            color: var(--success);
+            border: 1px solid var(--success);
+        }
+
+        .message.error {
+            background: rgba(220, 53, 69, 0.1);
+            color: var(--danger);
+            border: 1px solid var(--danger);
+        }
+        .spinner {
+            display: none;
+            width: 40px;
+            height: 40px;
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid var(--primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container nav-container">
+            <a href="#" class="logo" onclick="showSection('home')">
+                <i class="fas fa-utensils"></i>
+                Assanti Flavor Haven
+            </a>
+            <ul class="nav-menu">
+                <li class="nav-item"><a href="#" onclick="showSection('home')">Home</a></li>
+                <li class="nav-item"><a href="#" onclick="showSection('menu')">Menu</a></li>
+                <li class="nav-item"><a href="#" onclick="showSection('about')">About</a></li>
+                <li class="nav-item"><a href="#" onclick="showSection('order')">Order Now</a></li>
+                <li class="nav-item"><a href="#" onclick="showSection('contact')">Contact</a></li>
+                <li class="nav-item"><a href="#" onclick="showSection('profile')">Profile</a></li>
+            </ul>
+            <div class="cart-icon" onclick="showCart()">
+                <i class="fas fa-shopping-cart"></i>
+                <span class="cart-count" id="cartCount">0</span>
+            </div>
+            <div class="hamburger" onclick="toggleMobileMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+        <div class="mobile-menu" id="mobileMenu">
+            <a href="#" onclick="showSection('home')">Home</a>
+            <a href="#" onclick="showSection('menu')">Menu</a>
+            <a href="#" onclick="showSection('about')">About</a>
+            <a href="#" onclick="showSection('order')">Order Now</a>
+            <a href="#" onclick="showSection('contact')">Contact</a>
+            <a href="#" onclick="showSection('profile')">Profile</a>
+        </div>
+    </nav>
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1>Welcome to Assanti Flavor Haven</h1>
+            <p>Authentic local cuisine delivered fresh to your door</p>
+            <div class="cta-buttons">
+                <a href="#" class="btn btn-primary" onclick="showSection('menu')">
+                    <i class="fas fa-utensils"></i>
+                    View Menu
+                </a>
+                <a href="#" class="btn btn-outline" onclick="showSection('order')">
+                    <i class="fas fa-shopping-cart"></i>
+                    Order Now
+                </a>
+            </div>
+        </div>
+    </section>
+    <section class="section" id="menu">
+        <div class="container">
+            <h2 class="section-title">Our Menu</h2>
+            <div class="menu-grid" id="menuGrid">
+            </div>
+        </div>
+    </section>
+    <section class="section" id="about">
+        <div class="container">
+            <h2 class="section-title">About Assanti Flavor Haven</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <p>Founded in 2024, Assanti Flavor Haven has been serving the community with authentic, locally-sourced cuisine that celebrates the rich culinary traditions of our region. Our passionate chefs use only the freshest ingredients, many sourced from local farms and markets.</p>
+                    <p>What started as a small family restaurant has grown into a beloved local institution, but we've never forgotten our roots. Every dish is prepared with the same care and attention to detail that made us who we are today.</p>
+                    <p>Whether you're dining in our cozy restaurant or enjoying our convenient delivery service, you can taste the difference that passion and quality ingredients make. We're not just serving meals – we're sharing our love for great food with our community.</p>
+                </div>
+                <div class="about-image">
+                    <i class="fas fa-heart"></i>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="section" id="order">
+        <div class="container">
+            <h2 class="section-title">Place Your Order</h2>
+            <div class="order-form">
+                <form id="orderForm">
+                    <div class="message" id="orderMessage"></div>
+                    <div class="form-group">
+                        <label for="orderType">Order Type:</label>
+                        <select id="orderType" name="orderType" required>
+                            <option value="">Select Order Type</option>
+                            <option value="delivery">Delivery</option>
+                            <option value="pickup">Pickup</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="customerName">Full Name:</label>
+                        <input type="text" id="customerName" name="customerName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="customerPhone">Phone Number:</label>
+                        <input type="tel" id="customerPhone" name="customerPhone" required>
+                    </div>
+                    <div class="form-group" id="addressGroup" style="display: none;">
+                        <label for="customerAddress">Delivery Address:</label>
+                        <textarea id="customerAddress" name="customerAddress" rows="3"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="specialInstructions">Special Instructions:</label>
+                        <textarea id="specialInstructions" name="specialInstructions" rows="2"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-shopping-cart"></i>
+                        Place Order
+                    </button>
+                </form>
+            </div>
+            <div class="order-summary" id="orderSummary">
+                <h3>Order Summary</h3>
+                <div id="orderItems">
+                    <p>Your cart is empty. Visit our <a href="#" onclick="showSection('menu')">menu</a> to add items.</p>
+                </div>
+                <div class="order-total" id="orderTotal">
+                    Total: D0.00
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="section" id="contact">
+        <div class="container">
+            <h2 class="section-title">Contact Us</h2>
+            <div class="contact-info">
+                <div class="contact-item">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <h3>Address</h3>
+                    <p>123 Assanti Flavor Street<br>Bijilo<br>City,</p>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-phone"></i>
+                    <h3>Phone</h3>
+                    <p>(+220) 2112375<br>(+220) 3390654</p>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-clock"></i>
+                    <h3>Hours</h3>
+                    <p>Mon-Thu: 11am-9pm<br>Fri-Sat: 11am-10pm<br>Sun: 12pm-8pm</p>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-envelope"></i>
+                    <h3>Email</h3>
+                    <p>info@assantiflavorhaven.com<br>orders@assantiflavorhaven.com</p>
+                </div>
+            </div>
+            <div class="order-form">
+                <h3>Make a Reservation</h3>
+                <form id="reservationForm">
+                    <div class="message" id="reservationMessage"></div>
+                    <div class="form-group">
+                        <label for="resName">Name:</label>
+                        <input type="text" id="resName" name="resName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="resPhone">Phone:</label>
+                        <input type="tel" id="resPhone" name="resPhone" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="resDate">Date:</label>
+                        <input type="date" id="resDate" name="resDate" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="resTime">Time:</label>
+                        <input type="time" id="resTime" name="resTime" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="resParty">Party Size:</label>
+                        <select id="resParty" name="resParty" required>
+                            <option value="">Select party size</option>
+                            <option value="1">1 person</option>
+                            <option value="2">2 people</option>
+                            <option value="3">3 people</option>
+                            <option value="4">4 people</option>
+                            <option value="5">5 people</option>
+                            <option value="6">6 people</option>
+                            <option value="7">7 people</option>
+                            <option value="8">8+ people</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-calendar-check"></i>
+                        Make Reservation
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+    <section class="section" id="profile">
+        <div class="container">
+            <h2 class="section-title">My Profile</h2>
+            <div class="profile-tabs">
+                <button class="tab-btn active" onclick="showTab('info')">Personal Info</button>
+                <button class="tab-btn" onclick="showTab('orders')">Order History</button>
+                <button class="tab-btn" onclick="showTab('reviews')">Reviews</button>
+            </div>
+            <div class="tab-content active" id="info">
+                <div class="order-form">
+                    <form id="profileForm">
+                        <div class="message" id="profileMessage"></div>
+                        <div class="form-group">
+                            <label for="profileName">Full Name:</label>
+                            <input type="text" id="profileName" name="profileName" value="Assan Secka">
+                        </div>
+                        <div class="form-group">
+                            <label for="profileEmail">Email:</label>
+                            <input type="email" id="profileEmail" name="profileEmail" value="assanti@gmail.com">
+                        </div>
+                        <div class="form-group">
+                            <label for="profilePhone">Phone:</label>
+                            <input type="tel" id="profilePhone" name="profilePhone" value="(+220) 2112375">
+                        </div>
+                        <div class="form-group">
+                            <label for="profileAddress">Default Address:</label>
+                            <textarea id="profileAddress" name="profileAddress" rows="3">Bijilo West Coast</textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-save"></i>
+                            Update Profile
+                        </button>
+                    </form>
+                </div>
+            </div>
+            <div class="tab-content" id="orders">
+                <div id="orderHistory">
+                </div>
+            </div>
+            <div class="tab-content" id="reviews">
+                <div class="order-form">
+                    <h3>Leave a Review</h3>
+                    <form id="reviewForm">
+                        <div class="message" id="reviewMessage"></div>
+                        <div class="form-group">
+                            <label for="reviewRating">Rating:</label>
+                            <select id="reviewRating" name="reviewRating" required>
+                                <option value="">Select rating</option>
+                                <option value="5">5 Stars - Excellent</option>
+                                <option value="4">4 Stars - Very Good</option>
+                                <option value="3">3 Stars - Good</option>
+                                <option value="2">2 Stars - Fair</option>
+                                <option value="1">1 Star - Poor</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="reviewText">Review:</label>
+                            <textarea id="reviewText" name="reviewText" rows="4" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-star"></i>
+                            Submit Review
+                        </button>
+                    </form>
+                </div>
+                <div id="customerReviews">
+                </div>
+            </div>
+        </div>
+    </section>
+    <div class="modal" id="cartModal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal()">&times;</span>
+            <h3>Shopping Cart</h3>
+            <div id="cartItems">
+                <p>Your cart is empty.</p>
+            </div>
+            <div class="order-total" id="cartTotal">
+               
+            </div>
+            <button class="btn btn-primary" onclick="goToOrder()">
+                <i class="fas fa-shopping-cart"></i>
+                Proceed to Order
+            </button>
+        </div>
+    </div>
+
+    <script>
+        let cart = [];
+        let currentSection = 'home';
+        let menuItems = [];
+        let orderHistory = [];
+        let customerReviews = [];
+        function toggleMobileMenu() {
+            const mobileMenu = document.getElementById('mobileMenu');
+            mobileMenu.classList.toggle('active');
+        }
+
+        function showSection(sectionName) {
+            const sections = document.querySelectorAll('.section');
+            sections.forEach(section => {
+                section.classList.remove('active');
+            });
+            const hero = document.getElementById('home');
+            hero.style.display = 'none';
+            if (sectionName === 'home') {
+                hero.style.display = 'flex';
+            } else {
+                const targetSection = document.getElementById(sectionName);
+                if (targetSection) {
+                    targetSection.classList.add('active');
+                    targetSection.scrollIntoView({ behavior: 'smooth' });
+                }
+            }
+
+            currentSection = sectionName;
+            const mobileMenu = document.getElementById('mobileMenu');
+            mobileMenu.classList.remove('active');
+            if (sectionName === 'menu') {
+                loadMenu();
+            } else if (sectionName === 'profile') {
+                loadOrderHistory();
+                loadCustomerReviews();
+            }
+        }
+        const sampleMenuItems = [
+            {
+                id: 1,
+                name: "Burger",
+                description: "Juicy beef patty with lettuce, tomato, cheese, and our special sauce",
+                price: 150,
+                category: "Burgers",
+                icon: "🍔"
+            },
+            {
+                id: 2,
+                name: "Pizza",
+                description: "Fresh mozzarella, tomatoes, and basil on our homemade crust",
+                price: 300,
+                category: "Pizza",
+                icon: "🍕"
+            },
+            {
+                id: 3,
+                name: "Grilled Salmon",
+                description: "Atlantic salmon with lemon herb butter and seasonal vegetables",
+                price: 275,
+                category: "Seafood",
+                icon: "🐟"
+            },
+            {
+                id: 4,
+                name: "Full Chicken",
+                description: "Tender chicken breast over fettuccine with creamy alfredo sauce",
+                price: 250,
+                category: "Pasta",
+                icon: "🍝"
+            },
+            {
+                id: 5,
+                name: "Fruit Salad",
+                description: "Crisp romaine lettuce with parmesan cheese and croutons",
+                price: 35,
+                category: "Salads",
+                icon: "🥗"
+            },
+            {
+                id: 6,
+                name: "Chicken Ribs",
+                description: "Fall-off-the-bone ribs with our signature BBQ sauce",
+                price: 200,
+                category: "Chicken",
+                icon: "🍖"
+            },
+            {
+                id: 7,
+                name: "Vegetable Fry",
+                description: "Fresh seasonal vegetables in a savory soy-ginger sauce",
+                price: 75,
+                category: "Vegetarian",
+                icon: "🥕"
+            },
+            {
+                id: 8,
+                name: "Chocolate Cake",
+                description: "Rich chocolate cake with chocolate ganache frosting",
+                price: 100,
+                category: "Desserts",
+                icon: "🍰"
+            }
+        ];
+        function loadMenu() {
+            const menuGrid = document.getElementById('menuGrid');
+            menuGrid.innerHTML = '';
+
+            sampleMenuItems.forEach(item => {
+                const menuItemDiv = document.createElement('div');
+                menuItemDiv.className = 'menu-item fade-in';
+                menuItemDiv.innerHTML = `
+                    <div class="menu-item-image">
+                        <span style="font-size: 4rem;">${item.icon}</span>
+                    </div>
+                    <div class="menu-item-content">
+                        <h3>${item.name}</h3>
+                        <p>${item.description}</p>
+                        <div class="menu-item-footer">
+                            <span class="price">${item.price.toFixed(2)}</span>
+                            <button class="add-to-cart" onclick="addToCart(${item.id})">
+                                <i class="fas fa-plus"></i> Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                `;
+                menuGrid.appendChild(menuItemDiv);
+            });
+        }
+        function addToCart(itemId) {
+            const item = sampleMenuItems.find(i => i.id === itemId);
+            if (item) {
+                const existingItem = cart.find(i => i.id === itemId);
+                if (existingItem) {
+                    existingItem.quantity += 1;
+                } else {
+                    cart.push({ ...item, quantity: 1 });
+                }
+                updateCartDisplay();
+                showMessage('Item added to cart!', 'success', 'orderMessage');
+            }
+        }
+
+        function removeFromCart(itemId) {
+            cart = cart.filter(item => item.id !== itemId);
+            updateCartDisplay();
+        }
+
+        function updateCartQuantity(itemId, quantity) {
+            const item = cart.find(i => i.id === itemId);
+            if (item) {
+                if (quantity <= 0) {
+                    removeFromCart(itemId);
+                } else {
+                    item.quantity = quantity;
+                }
+                updateCartDisplay();
+            }
+        }
+
+        function updateCartDisplay() {
+            const cartCount = document.getElementById('cartCount');
+            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+            cartCount.textContent = totalItems;
+
+            updateOrderSummary();
+            updateCartModal();
+        }
+
+        function updateOrderSummary() {
+            const orderItems = document.getElementById('orderItems');
+            const orderTotal = document.getElementById('orderTotal');
+
+            if (cart.length === 0) {
+                orderItems.innerHTML = '<p>Your cart is empty. Visit our <a href="#" onclick="showSection(\'menu\')">menu</a> to add items.</p>';
+                orderTotal.textContent = 'Total: D0.00';
+                return;
+            }
+
+            let html = '';
+            let total = 0;
+
+            cart.forEach(item => {
+                const itemTotal = item.price * item.quantity;
+                total += itemTotal;
+                html += `
+                    <div class="order-item">
+                        <div>
+                            <strong>${item.name}</strong><br>
+                            <small>${item.price.toFixed(2)} each</small>
+                        </div>
+                        <div>
+                            <button onclick="updateCartQuantity(${item.id}, ${item.quantity - 1})" style="background: var(--danger); color: white; border: none; padding: 0.3rem 0.6rem; border-radius: 3px; margin-right: 0.5rem;">−</button>
+                            <span>${item.quantity}</span>
+                            <button onclick="updateCartQuantity(${item.id}, ${item.quantity + 1})" style="background: var(--success); color: white; border: none; padding: 0.3rem 0.6rem; border-radius: 3px; margin-left: 0.5rem;">+</button>
+                        </div>
+                        <div>${itemTotal.toFixed(2)}</div>
+                    </div>
+                `;
+            });
+
+            orderItems.innerHTML = html;
+            orderTotal.textContent = `Total: ${total.toFixed(2)}`;
+        }
+
+        function updateCartModal() {
+            const cartItems = document.getElementById('cartItems');
+            const cartTotal = document.getElementById('cartTotal');
+
+            if (cart.length === 0) {
+                cartItems.innerHTML = '<p>Your cart is empty.</p>';
+                cartTotal.textContent = 'Total: D0.00';
+                return;
+            }
+
+            let html = '';
+            let total = 0;
+
+            cart.forEach(item => {
+                const itemTotal = item.price * item.quantity;
+                total += itemTotal;
+                html += `
+                    <div class="order-item">
+                        <div>
+                            <strong>${item.name}</strong><br>
+                            <small>Qty: ${item.quantity} × ${item.price.toFixed(2)}</small>
+                        </div>
+                        <div>${itemTotal.toFixed(2)}</div>
+                    </div>
+                `;
+            });
+
+            cartItems.innerHTML = html;
+            cartTotal.textContent = `Total: ${total.toFixed(2)}`;
+        }
+
+        function showCart() {
+            updateCartModal();
+            document.getElementById('cartModal').style.display = 'flex';
+        }
+
+        function closeModal() {
+            document.getElementById('cartModal').style.display = 'none';
+        }
+
+        function goToOrder() {
+            closeModal();
+            showSection('order');
+        }
+        function showTab(tabName) {
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+            event.target.classList.add('active');
+            document.getElementById(tabName).classList.add('active');
+        }
+        function showMessage(message, type, elementId) {
+            const messageElement = document.getElementById(elementId);
+            messageElement.textContent = message;
+            messageElement.className = `message ${type}`;
+            messageElement.style.display = 'block';
+            
+            setTimeout(() => {
+                messageElement.style.display = 'none';
+            }, 5000);
+        }
+        function loadOrderHistory() {
+            const orderHistory = [
+                {
+                    id: 'ORD-001',
+                    date: '2024-06-10',
+                    total: 450,
+                    status: 'Delivered',
+                    items: [' Burger', ' Pizza']
+                },
+                {
+                    id: 'ORD-002',
+                    date: '2024-06-05',
+                    total: 275,
+                    status: 'Delivered',
+                    items: ['Grilled Salmon']
+                },
+                {
+                    id: 'ORD-003',
+                    date: '2024-05-28',
+                    total: 235,
+                    status: 'Delivered',
+                    items: ['Chicken Ribs', 'Fruit Salad']
+                }
+            ];
+
+            const orderHistoryDiv = document.getElementById('orderHistory');
+            let html = '';
+
+            orderHistory.forEach(order => {
+                html += `
+                    <div class="order-history-item">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                            <strong>Order #${order.id}</strong>
+                            <span style="color: var(--success); font-weight: bold;">${order.status}</span>
+                        </div>
+                        <div style="margin-bottom: 0.5rem;">
+                            <strong>Date:</strong> ${order.date}
+                        </div>
+                        <div style="margin-bottom: 0.5rem;">
+                            <strong>Items:</strong> ${order.items.join(', ')}
+                        </div>
+                        <div style="margin-bottom: 0.5rem;">
+                            <strong>Total:</strong> ${order.total.toFixed(2)}
+                        </div>
+                        <button class="btn btn-outline" style="margin-top: 1rem; padding: 0.5rem 1rem; font-size: 0.9rem;" onclick="reorderItems('${order.id}')">
+                            <i class="fas fa-redo"></i> Reorder
+                        </button>
+                    </div>
+                `;
+            });
+
+            orderHistoryDiv.innerHTML = html;
+        }
+
+        function loadCustomerReviews() {
+            const reviews = [
+                {
+                    rating: 5,
+                    date: '2024-06-08',
+                    review: 'Amazing food and excellent service! The Burger was incredible.'
+                },
+                {
+                    rating: 4,
+                    date: '2024-05-25',
+                    review: 'Great pizza and fast delivery. Will definitely order again!'
+                }
+            ];
+
+            const customerReviewsDiv = document.getElementById('customerReviews');
+            let html = '<h3 style="margin-top: 2rem;">Your Previous Reviews</h3>';
+
+            reviews.forEach(review => {
+                const stars = '★'.repeat(review.rating) + '☆'.repeat(5 - review.rating);
+                html += `
+                    <div class="order-history-item">
+                        <div style="color: var(--secondary); font-size: 1.2rem; margin-bottom: 0.5rem;">
+                            ${stars}
+                        </div>
+                        <div style="margin-bottom: 0.5rem;">
+                            <strong>Date:</strong> ${review.date}
+                        </div>
+                        <div>${review.review}</div>
+                    </div>
+                `;
+            });
+
+            customerReviewsDiv.innerHTML = html;
+        }
+
+        function reorderItems(orderId) {
+            showMessage('Items added to cart! Proceed to checkout.', 'success', 'profileMessage');
+            
+            if (cart.length === 0) {
+                addToCart(1);
+                addToCart(2); 
+            }
+        }
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('orderType').addEventListener('change', function() {
+                const addressGroup = document.getElementById('addressGroup');
+                if (this.value === 'delivery') {
+                    addressGroup.style.display = 'block';
+                    document.getElementById('customerAddress').required = true;
+                } else {
+                    addressGroup.style.display = 'none';
+                    document.getElementById('customerAddress').required = false;
+                }
+            });
+            document.getElementById('orderForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                if (cart.length === 0) {
+                    showMessage('Please add items to your cart before placing an order.', 'error', 'orderMessage');
+                    return;
+                }
+                const formData = new FormData(this);
+                const orderData = Object.fromEntries(formData);
+                showMessage('Order placed successfully! You will receive a confirmation shortly.', 'success', 'orderMessage');
+                setTimeout(() => {
+                    cart = [];
+                    updateCartDisplay();
+                    this.reset();
+                }, 2000);
+            });
+            document.getElementById('reservationForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                showMessage('Reservation request submitted! We will call you to confirm.', 'success', 'reservationMessage');
+                this.reset();
+            });
+            document.getElementById('profileForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                showMessage('Profile updated successfully!', 'success', 'profileMessage');
+            });
+            document.getElementById('reviewForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                showMessage('Thank you for your review!', 'success', 'reviewMessage');
+                this.reset();
+                setTimeout(() => {
+                    loadCustomerReviews();
+                }, 1000);
+            });
+            loadMenu();
+            updateCartDisplay();
+        });
+        window.addEventListener('click', function(e) {
+            const modal = document.getElementById('cartModal');
+            if (e.target === modal) {
+                closeModal();
+            }
+        });
+    </script>
